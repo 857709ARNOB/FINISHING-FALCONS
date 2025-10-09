@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GAS Web App Client</title>
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:40px auto;padding:0 16px}</style>
+</head>
+<body>
+  <h1>Apps Script API (GET)</h1>
+  <form id="f">
+    <label>ইনপুট: <input name="q" placeholder="যে ডেটা পাঠাবেন" required></label>
+    <button type="submit">পাঠান</button>
+  </form>
+  <pre id="out">...</pre>
+
+  <script>
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycbwHpydikjEIXoPyXIb2462w9UZhvKVy5CVWJ6l7xPnprg-NquERTyyb6urHHt5elt50/exec";
+
+    document.getElementById('f').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const q = new FormData(e.target).get('q');
+      const url = ENDPOINT + "?q=" + encodeURIComponent(q);
+      try {
+        const res = await fetch(url, { method: "GET" });
+        const text = await res.text(); // যদি JSON হয়, JSON.parse(text) করুন
+        document.getElementById('out').textContent = text;
+      } catch (err) {
+        document.getElementById('out').textContent = "Error: " + err;
+      }
+    });
+  </script>
+</body>
+</html>
