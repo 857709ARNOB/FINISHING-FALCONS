@@ -1,34 +1,23 @@
-<!doctype html>
-<html lang="bn">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GAS Web App Client</title>
-  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:40px auto;padding:0 16px}</style>
-</head>
-<body>
-  <h1>Apps Script API (GET)</h1>
-  <form id="f">
-    <label>ইনপুট: <input name="q" placeholder="যে ডেটা পাঠাবেন" required></label>
-    <button type="submit">পাঠান</button>
-  </form>
-  <pre id="out">...</pre>
-
-  <script>
-    const ENDPOINT = "https://script.google.com/macros/s/AKfycbwHpydikjEIXoPyXIb2462w9UZhvKVy5CVWJ6l7xPnprg-NquERTyyb6urHHt5elt50/exec";
-
-    document.getElementById('f').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const q = new FormData(e.target).get('q');
-      const url = ENDPOINT + "?q=" + encodeURIComponent(q);
-      try {
-        const res = await fetch(url, { method: "GET" });
-        const text = await res.text(); // যদি JSON হয়, JSON.parse(text) করুন
-        document.getElementById('out').textContent = text;
-      } catch (err) {
-        document.getElementById('out').textContent = "Error: " + err;
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>arnob.com</title>
+    <style>
+      /* Ensure the body takes up the full height of the page */
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
       }
-    });
-  </script>
-</body>
+      /* Make iframe take up 100% width and height of the screen */
+      iframe {
+        width: 100%;
+        height: 100vh; /* Viewport height */
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe src="https://script.google.com/macros/s/AKfycbwHpydikjEIXoPyXIb2462w9UZhvKVy5CVWJ6l7xPnprg-NquERTyyb6urHHt5elt50/exec" scrolling="no"></iframe>
+  </body>
 </html>
